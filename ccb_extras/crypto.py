@@ -68,13 +68,13 @@ def decrypt(source: Path, dest: Path, pass_file: Path) -> bool:
 #  -writerand outfile  Write random data to the specified file
 #  -z                  Use zlib as the 'encryption'
 #  -engine val         Use engine, possibly a hardware device
-def _crypt(encrypt: bool, source: Path, dest: Path, pass_file: Path) -> bool:
+def _crypt(do_encrypt: bool, source: Path, dest: Path, pass_file: Path) -> bool:
     """Encrypt or decrypt a file."""
-    assert source.is_file(), 'source is not a file: %s' % source
-    assert not dest.exists(), 'failed to overwrite dest: %s' % dest
+    assert source.is_file(), f'source is not a file: {source}'
+    assert not dest.exists(), f'failed to overwrite dest: {dest}'
     if not dest.parent.exists():
         dest.parent.mkdir(parents=True)
-    mode = '-e' if encrypt else '-d'
+    mode = '-e' if do_encrypt else '-d'
     # todo expose params
     cmd = f"""{OPENSSL} enc {mode} -in {shell_escape(source)} -out {shell_escape(dest)} \
         -aes-256-cbc -md sha512 -pbkdf2 -iter 100000 -salt -bufsize 524288 \
