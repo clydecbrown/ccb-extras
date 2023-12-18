@@ -4,6 +4,7 @@ import logging
 from pathlib import Path
 from typing import Any, Union, Optional, Dict
 
+from ccb_essentials.constant import UTF8
 from ruamel.yaml import YAML
 from ruamel.yaml.comments import CommentedMap
 
@@ -15,9 +16,10 @@ class YamlFile:
     Other values (like a single scalar) might be valid yaml, but they aren't very useful."""
 
     def __init__(
-            self,
-            path: Union[Path, str],  # path to a yaml file
-            default_values: str = ''  # serialized yaml to use if the file is empty
+        self,
+        path: Union[Path, str],  # path to a yaml file
+        default_values: str = '',  # serialized yaml to use if the file is empty
+        encoding: str = UTF8,  # encoding for file.open()
     ):
         self._path = Path(path)
 
@@ -28,7 +30,7 @@ class YamlFile:
 
         loaded: Optional[Dict[Any, Any]] = None
         try:
-            with open(str(self._path)) as f:
+            with open(str(self._path), encoding=encoding) as f:
                 loaded = self._yaml_parser.load(f)
         except FileNotFoundError:
             pass

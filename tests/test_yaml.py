@@ -2,9 +2,9 @@
 from typing import Dict
 
 import pytest
-
-from vella_python_utils.filesystem import temporary_path
-from vella_python_utils.yaml import YamlFile
+from ccb_essentials.constant import UTF8
+from ccb_essentials.filesystem import temporary_path
+from ccb_extras.yaml import YamlFile
 
 
 # Nil YAML, formatted by machine
@@ -64,7 +64,7 @@ class TestYamlFile:
         """It initialize an empty yaml file."""
         with temporary_path() as path:
             YamlFile(path)
-            with open(path, 'r') as f:
+            with open(path, 'r', encoding=UTF8) as f:
                 assert f.read() == _EMPTY_YAML
 
     @staticmethod
@@ -89,7 +89,7 @@ class TestYamlFile:
             assert not path.is_file()
             YamlFile(path, _SAMPLE_TEXT)
             assert path.is_file()
-            with open(path, 'r') as f:
+            with open(path, 'r', encoding=UTF8) as f:
                 assert f.read() == _SAMPLE_YAML
 
     @staticmethod
@@ -99,7 +99,7 @@ class TestYamlFile:
             assert not path.is_file()
             YamlFile(str(path), _SAMPLE_TEXT)
             assert path.is_file()
-            with open(path, 'r') as f:
+            with open(path, 'r', encoding=UTF8) as f:
                 assert f.read() == _SAMPLE_YAML
 
     @staticmethod
@@ -108,7 +108,7 @@ class TestYamlFile:
         with temporary_path() as path:
             path.touch()
             YamlFile(path, _SAMPLE_TEXT)
-            with open(path, 'r') as f:
+            with open(path, 'r', encoding=UTF8) as f:
                 assert f.read() == _SAMPLE_YAML
 
     @staticmethod
@@ -160,7 +160,7 @@ class TestYamlFile:
     def test_load_file() -> None:
         """It should load yaml from a file."""
         with temporary_path() as path:
-            with open(path, 'w') as f:
+            with open(path, 'w', encoding=UTF8) as f:
                 f.write(_SAMPLE_YAML)
             yaml = YamlFile(path)
             assert yaml.get_value("a") == "b"
@@ -173,7 +173,7 @@ class TestYamlFile:
             yaml = YamlFile(path, _SAMPLE_TEXT)
             yaml.set_value("answer", 42)
             found_answer = False
-            with open(path, 'r') as f:
+            with open(path, 'r', encoding=UTF8) as f:
                 for line in f.readlines():
                     if line.rstrip() == "answer: 42":
                         found_answer = True
@@ -183,13 +183,13 @@ class TestYamlFile:
     def test_formatting() -> None:
         """It should update values and preserve formatting on a round-trip from disk."""
         with temporary_path() as path:
-            with open(path, 'w') as f:
+            with open(path, 'w', encoding=UTF8) as f:
                 f.write(_FORMATTED_YAML)
             yaml = YamlFile(path)
             yaml.set_value("wins", 1000)
             yaml.set_value("losses", 999)
             yaml.set_value("hr", yaml.get_value("hr") + 1)
-            with open(path, 'r') as f:
+            with open(path, 'r', encoding=UTF8) as f:
                 assert f.read() == _FORMATTED_YAML_EDITED
 
     @staticmethod
@@ -223,7 +223,7 @@ class TestYamlFile:
             yaml = YamlFile(path, _SAMPLE_TEXT)
             yaml.set_delimited_value("the.answer.is", 42, key_delimiter='')
             found_answer = False
-            with open(path, 'r') as f:
+            with open(path, 'r', encoding=UTF8) as f:
                 for line in f.readlines():
                     if line.rstrip() == "the.answer.is: 42":
                         found_answer = True
@@ -236,7 +236,7 @@ class TestYamlFile:
             yaml = YamlFile(path, _SAMPLE_TEXT)
             yaml.set_delimited_value("the.answer.is", 42, key_delimiter='.')
             found_answer = False
-            with open(path, 'r') as f:
+            with open(path, 'r', encoding=UTF8) as f:
                 for line in f.readlines():
                     if line.rstrip() == "the: {answer: {is: 42}}":
                         found_answer = True
