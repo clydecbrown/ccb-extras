@@ -7,7 +7,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "ccb-extras"
-version = "0.1.0"
+version = "1.0.0"
 description = "Extra tools for Python 3."
 authors = [
     "Clyde C Brown <clyde.c.brown@pm.me>",
@@ -15,7 +15,7 @@ authors = [
 readme = "README.md"
 license = "MIT"
 repository = "https://github.com/clydecbrown/ccb-extras"
-keywords = ["utilities", "yaml"]
+keywords = ["utilities", "yaml", "encryption"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
