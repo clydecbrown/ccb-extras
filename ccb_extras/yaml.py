@@ -52,7 +52,7 @@ class YamlFile:
         return f"{type(self).__name__}({self._path})"
 
     @property
-    def yaml_doc(self) -> Dict[Any, Any]:  # type: ignore[misc]
+    def yaml_doc(self) -> Dict[Any, Any]:
         """The parsed yaml document."""
         return self._yaml_doc
 
