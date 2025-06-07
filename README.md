@@ -1,28 +1,19 @@
 # Python Extras
 
-General-purpose tools for Python 3.
+Extra general-purpose tools for Python 3.
+
+## Overview
+
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/clydecbrown/ccb-extras)
+
+### Crypto
+
+Simplify cryptographic operations on the filesystem. [Details](docs/crypto.md)
+
+### YAML Handling
+
+`YamlFile` simplifies working with YAML files, especially application config files. [Details](docs/yaml.md)
 
 ## Development Environment
 
-First, [install Poetry](https://python-poetry.org/docs/).
-
-### Set up
-    poetry install --sync
-    poetry check
-    poetry show
-
-## Maintenance
-
-### Code test
-    poetry run pytest
-
-### Code lint
-    poetry run bin/lint.sh
-
-### Build artifacts
-    poetry build
-
-### Publish
-    poetry version [major|minor|patch]
-    V=v`poetry version -s` && git add pyproject.toml && git commit -m $V && git tag -a -m $V $V
-    poetry publish --build
+[Maintaining this package](docs/dev.md)

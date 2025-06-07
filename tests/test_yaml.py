@@ -61,7 +61,7 @@ class TestYamlFile:
 
     @staticmethod
     def test_empty() -> None:
-        """It initialize an empty yaml file."""
+        """It should initialize an empty yaml file."""
         with temporary_path() as path:
             YamlFile(path)
             with open(path, 'r', encoding=UTF8) as f:
