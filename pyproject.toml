@@ -1,20 +1,19 @@
 # https://packaging.python.org/en/latest/tutorials/packaging-projects/
-# https://python-poetry.org/docs/pyproject/
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.poetry]
+[project]
 name = "ccb-extras"
 version = "1.0.0"
 description = "Extra tools for Python 3."
+requires-python = ">=3.9"
 authors = [
-    "Clyde C Brown <clyde.c.brown@pm.me>",
+    {name = "Clyde C Brown", email = "clyde.c.brown@pm.me"},
 ]
 readme = "README.md"
-license = "MIT"
-repository = "https://github.com/clydecbrown/ccb-extras"
+license = {text = "MIT"}
 keywords = ["utilities", "yaml", "encryption"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -25,15 +24,19 @@ classifiers = [
     "Topic :: Utilities",
     "Typing :: Typed",
 ]
+dependencies = [
+    "ccb-essentials>=1.0.1",
+    "ruamel-yaml>=0.18.5",
+]
 
-[tool.poetry.dependencies]
-ccb-essentials = "^1.0.1"
-python = "^3.9"
-ruamel-yaml = "^0.18.5"
+[project.urls]
+Repository = "https://github.com/clydecbrown/ccb-extras"
 
-[tool.poetry.group.dev.dependencies]
-mypy = "^1.16.0"
-pycodestyle = "^2.13.0"
-pylint = "^3.3.7"
-pytest = "^7.4.4"
-setuptools = "^69.5.1"
+[project.optional-dependencies]
+dev = [
+    "mypy>=1.16.0",
+    "pycodestyle>=2.13.0",
+    "pylint>=3.3.7",
+    "pytest>=7.4.4",
+    "setuptools>=69.5.1",
+]

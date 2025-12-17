@@ -2,25 +2,24 @@
 
 ## Development Environment
 
-First, [install Poetry](https://python-poetry.org/docs/).
+First, [install uv](https://docs.astral.sh/uv/getting-started/installation/).
 
 ### Set up
-    poetry install --sync
-    poetry check
-    poetry show
+    uv sync --extra dev
+    uv tree
 
 ## Maintenance
 
 ### Code test
-    poetry run pytest
+    uv run pytest
 
 ### Code lint
-    poetry run bin/lint.sh
+    uv run bin/lint.sh
 
 ### Build artifacts
-    poetry build
+    uv build
 
 ### Publish
-    poetry version [major|minor|patch]
-    V=v`poetry version -s` && git add pyproject.toml && git commit -m $V && git tag -a -m $V $V
-    poetry publish --build
+    uv version --bump [major|minor|patch]
+    V=v$(uv version --short) && git add pyproject.toml && git commit -m $V && git tag -a -m $V $V
+    uv publish
