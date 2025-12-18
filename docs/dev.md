@@ -13,6 +13,9 @@ First, [install uv](https://docs.astral.sh/uv/getting-started/installation/).
 ### Test code
     uv run pytest
 
+#### Test with each Python version
+    ./bin/test-all.sh
+
 ### Lint code
     uv run bin/lint.sh
 
