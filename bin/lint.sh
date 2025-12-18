@@ -2,8 +2,7 @@
 # Clean all the code.
 
 # https://mypy.readthedocs.io/en/latest/
-# https://pylint.readthedocs.io/en/latest/
-# http://pycodestyle.pycqa.org/en/latest/intro.html
+# https://docs.astral.sh/ruff/
 
 set -e
 
@@ -14,8 +13,8 @@ NC='\033[0m'
 
 echo "mypy:" && \
 mypy --pretty $SOURCES && \
-echo "pylint:" && \
-pylint $SOURCES && \
-echo "pycodestyle:" && \
-pycodestyle --max-line-length=120 $SOURCES && \
+echo "ruff check:" && \
+ruff check $SOURCES && \
+echo "ruff format:" && \
+ruff format --check $SOURCES && \
 printf "${GREEN}This code is clean.${NC}\n"

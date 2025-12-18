@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-`ccb-extras` is a production Python 3.9+ utility library with two independent modules:
+`ccb-extras` is a production Python 3.10+ utility library with two independent modules:
 - **`crypto.py`**: File encryption/decryption via OpenSSL wrapper, plus MD5 hashing
 - **`yaml.py`**: Config file handling with YAML persistence, comment preservation, and hierarchical key access
 
@@ -12,37 +12,28 @@
 - **Strict mypy enforcement** (see [mypy.ini](mypy.ini)): `disallow_untyped_defs=True`, `disallow_any_unimported=True`, `disallow_incomplete_defs=True`
 - All functions must have complete type annotations; return types are mandatory
 - The project is `py.typed` — any new code impacts downstream consumers
-- Test with `poetry run pytest` and lint with `poetry run bin/lint.sh` (runs mypy, pylint, pycodestyle)
 
 ### Module Design
 - **`crypto.py`**: Wraps OpenSSL CLI via `subprocess_command()` from `ccb_essentials`. Has a hardcoded `OPENSSL` path (`/opt/local/bin/openssl`); designed for macOS/MacPorts. Symmetric AES-256-CBC with PBKDF2 (100K iterations). File paths use `Path` objects; MD5 chunked reads (8KB) for memory efficiency.
 - **`yaml.py`**: `YamlFile` class maps a YAML file to a Python `Dict` (actually `ruamel.yaml.CommentedMap`). Lazy file creation on first write. Supports nested dot/custom-delimited keys via `get_delimited_value()` / `set_delimited_value()`. Uses `ruamel.yaml` (typ='rt') for round-trip comment/formatting preservation.
 
 ### Dependencies
-- **External**: `ruamel-yaml ^0.18.5`, `ccb-essentials ^1.0.1` (contains `subprocess_command`, `shell_escape`, `UTF8` constant)
-- **Dev**: pytest, mypy, pylint, pycodestyle (max line length: 120)
+- **External**: `ruamel-yaml>=0.18.5`, `ccb-essentials>=1.0.1` (contains `subprocess_command`, `shell_escape`, `UTF8` constant)
+- **Dev**: pytest, mypy, ruff (max line length: 120)
 
 ## Developer Workflow
 
 ### Setup
-```bash
-poetry install --sync
-poetry check
-poetry show
-```
+The project uses `hatchling` as the build backend, and `uv` to manage the virtual environment (see the `uv.lock` file).
 
 ### Testing & Linting
 ```bash
-poetry run pytest              # Run all tests
-poetry run bin/lint.sh         # Run mypy + pylint + pycodestyle
+uv run pytest              # Run all tests
+uv run bin/lint.sh         # Run mypy + ruff
 ```
 
 ### Publishing (semver versioning)
-```bash
-poetry version [major|minor|patch]
-V=v`poetry version -s` && git add pyproject.toml && git commit -m $V && git tag -a -m $V $V
-poetry publish --build
-```
+This project uses `hatchling` for building and publishing. See the `pyproject.toml` for configuration.
 
 ## Code Patterns & Conventions
 

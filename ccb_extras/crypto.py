@@ -1,9 +1,11 @@
 """Encryption utils"""
+
 import logging
 from hashlib import md5
 from pathlib import Path
 
-from ccb_essentials.subprocess import subprocess_command, shell_escape
+from ccb_essentials.subprocess import shell_escape, subprocess_command
+
 
 log = logging.getLogger(__name__)
 

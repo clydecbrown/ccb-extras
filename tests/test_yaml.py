@@ -1,9 +1,9 @@
 """Unit tests"""
-from typing import Dict
 
 import pytest
 from ccb_essentials.constant import UTF8
 from ccb_essentials.filesystem import temporary_path
+
 from ccb_extras.yaml import YamlFile
 
 
@@ -64,15 +64,14 @@ class TestYamlFile:
         """It should initialize an empty yaml file."""
         with temporary_path() as path:
             YamlFile(path)
-            with open(path, 'r', encoding=UTF8) as f:
+            with open(path, encoding=UTF8) as f:
                 assert f.read() == _EMPTY_YAML
 
     @staticmethod
     def test_invalid_default() -> None:
         """It should fail on invalid default values."""
-        with temporary_path() as path:
-            with pytest.raises(AssertionError):
-                YamlFile(path, '0')
+        with temporary_path() as path, pytest.raises(AssertionError):
+            YamlFile(path, '0')
 
     @staticmethod
     def test_invalid_file() -> None:
@@ -89,7 +88,7 @@ class TestYamlFile:
             assert not path.is_file()
             YamlFile(path, _SAMPLE_TEXT)
             assert path.is_file()
-            with open(path, 'r', encoding=UTF8) as f:
+            with open(path, encoding=UTF8) as f:
                 assert f.read() == _SAMPLE_YAML
 
     @staticmethod
@@ -99,7 +98,7 @@ class TestYamlFile:
             assert not path.is_file()
             YamlFile(str(path), _SAMPLE_TEXT)
             assert path.is_file()
-            with open(path, 'r', encoding=UTF8) as f:
+            with open(path, encoding=UTF8) as f:
                 assert f.read() == _SAMPLE_YAML
 
     @staticmethod
@@ -108,7 +107,7 @@ class TestYamlFile:
         with temporary_path() as path:
             path.touch()
             YamlFile(path, _SAMPLE_TEXT)
-            with open(path, 'r', encoding=UTF8) as f:
+            with open(path, encoding=UTF8) as f:
                 assert f.read() == _SAMPLE_YAML
 
     @staticmethod
@@ -116,7 +115,7 @@ class TestYamlFile:
         """It should share its yaml doc for convenience."""
         with temporary_path() as path:
             doc = YamlFile(path, _SAMPLE_TEXT).yaml_doc
-            assert isinstance(doc, Dict)
+            assert isinstance(doc, dict)
             assert doc['a'] == 'b'
             assert doc['c'] == 123
 
@@ -173,7 +172,7 @@ class TestYamlFile:
             yaml = YamlFile(path, _SAMPLE_TEXT)
             yaml.set_value("answer", 42)
             found_answer = False
-            with open(path, 'r', encoding=UTF8) as f:
+            with open(path, encoding=UTF8) as f:
                 for line in f.readlines():
                     if line.rstrip() == "answer: 42":
                         found_answer = True
@@ -189,7 +188,7 @@ class TestYamlFile:
             yaml.set_value("wins", 1000)
             yaml.set_value("losses", 999)
             yaml.set_value("hr", yaml.get_value("hr") + 1)
-            with open(path, 'r', encoding=UTF8) as f:
+            with open(path, encoding=UTF8) as f:
                 assert f.read() == _FORMATTED_YAML_EDITED
 
     @staticmethod
@@ -198,8 +197,8 @@ class TestYamlFile:
         with temporary_path() as path:
             yaml = YamlFile(path, _HIERARCHICAL_YAML)
             for key in [
-                    'key1.key2.key3',
-                    'nested1.nested2.nested3',
+                'key1.key2.key3',
+                'nested1.nested2.nested3',
             ]:
                 assert yaml.get_delimited_value(key, key_delimiter='') == yaml.get_value(key)
 
@@ -209,10 +208,10 @@ class TestYamlFile:
         with temporary_path() as path:
             yaml = YamlFile(path, _HIERARCHICAL_YAML)
             for key, delimiter, expected in [
-                    ('key1.key2.key3', '.', 'hierarchical-value'),
-                    ('key1/key2/key3', '/', 'hierarchical-value'),
-                    ('nested1.nested2.nested3', '.', 'nested-value'),
-                    ('nested1/nested2/nested3', '/', 'nested-value'),
+                ('key1.key2.key3', '.', 'hierarchical-value'),
+                ('key1/key2/key3', '/', 'hierarchical-value'),
+                ('nested1.nested2.nested3', '.', 'nested-value'),
+                ('nested1/nested2/nested3', '/', 'nested-value'),
             ]:
                 assert yaml.get_delimited_value(key, key_delimiter=delimiter) == expected
 
@@ -223,7 +222,7 @@ class TestYamlFile:
             yaml = YamlFile(path, _SAMPLE_TEXT)
             yaml.set_delimited_value("the.answer.is", 42, key_delimiter='')
             found_answer = False
-            with open(path, 'r', encoding=UTF8) as f:
+            with open(path, encoding=UTF8) as f:
                 for line in f.readlines():
                     if line.rstrip() == "the.answer.is: 42":
                         found_answer = True
@@ -236,7 +235,7 @@ class TestYamlFile:
             yaml = YamlFile(path, _SAMPLE_TEXT)
             yaml.set_delimited_value("the.answer.is", 42, key_delimiter='.')
             found_answer = False
-            with open(path, 'r', encoding=UTF8) as f:
+            with open(path, encoding=UTF8) as f:
                 for line in f.readlines():
                     if line.rstrip() == "the: {answer: {is: 42}}":
                         found_answer = True

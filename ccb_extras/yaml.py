@@ -1,12 +1,14 @@
 """YAML helpers"""
+
 import io
 import logging
 from pathlib import Path
-from typing import Any, Union, Optional, Dict
+from typing import Any
 
 from ccb_essentials.constant import UTF8
 from ruamel.yaml import YAML
 from ruamel.yaml.comments import CommentedMap
+
 
 log = logging.getLogger(__name__)
 
@@ -17,7 +19,7 @@ class YamlFile:
 
     def __init__(
         self,
-        path: Union[Path, str],  # path to a yaml file
+        path: Path | str,  # path to a yaml file
         default_values: str = '',  # serialized yaml to use if the file is empty
         encoding: str = UTF8,  # encoding for file.open()
     ):
@@ -28,14 +30,13 @@ class YamlFile:
         self._yaml_parser.default_flow_style = True
         self._yaml_parser.indent(mapping=2, sequence=4, offset=2)
 
-        loaded: Optional[Dict[Any, Any]] = None
+        loaded: dict[Any, Any] | None = None
         try:
             with open(str(self._path), encoding=encoding) as f:
                 loaded = self._yaml_parser.load(f)
         except FileNotFoundError:
             pass
 
-        self._yaml_doc: Dict[Any, Any]  # This keeps pylint happy, but actually it's a CommentedMap.
         if loaded is None:
             log.debug("initializing yaml file at %s", str(self._path))
             loaded = self._yaml_parser.load(default_values)
@@ -52,7 +53,7 @@ class YamlFile:
         return f"{type(self).__name__}({self._path})"
 
     @property
-    def yaml_doc(self) -> Dict[Any, Any]:
+    def yaml_doc(self) -> dict[Any, Any]:
         """The parsed yaml document."""
         return self._yaml_doc
 

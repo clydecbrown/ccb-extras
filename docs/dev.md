@@ -5,15 +5,15 @@
 First, [install uv](https://docs.astral.sh/uv/getting-started/installation/).
 
 ### Set up
-    uv sync --extra dev
+    uv sync
     uv tree
 
 ## Maintenance
 
-### Code test
+### Test code
     uv run pytest
 
-### Code lint
+### Lint code
     uv run bin/lint.sh
 
 ### Build artifacts
