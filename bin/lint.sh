@@ -12,7 +12,7 @@ GREEN='\033[0;32m'
 NC='\033[0m'
 
 echo "mypy:" && \
-mypy --pretty $SOURCES && \
+mypy --pretty "stubs" $SOURCES && \
 echo "ruff check py310:" && \
 ruff check $SOURCES --target-version=py310 && \
 echo "ruff check py314:" && \

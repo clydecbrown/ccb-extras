@@ -26,7 +26,8 @@ classifiers = [
     "Programming Language :: Python :: 3.14",
 ]
 dependencies = [
-    "ccb-essentials>=1.0.1",
+    "ccb-essentials>=1.2.0",
+    "humanfriendly>=9.1",
     "ruamel-yaml>=0.18.5",
 ]
 
