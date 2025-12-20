@@ -14,7 +14,7 @@ authors = [
 ]
 readme = "README.md"
 license = {text = "MIT"}
-keywords = ["utilities", "yaml", "encryption"]
+keywords = ["utilities", "encryption", "ram disk", "yaml"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
@@ -23,6 +23,10 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Utilities",
     "Typing :: Typed",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
 ]
 dependencies = [
