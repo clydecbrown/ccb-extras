@@ -2,6 +2,12 @@
 
 Extra general-purpose tools for Python 3.
 
+## Installation
+
+```bash
+pip install ccb-extras
+```
+
 ## Overview
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/clydecbrown/ccb-extras)

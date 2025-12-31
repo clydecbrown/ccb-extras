@@ -18,16 +18,17 @@ keywords = ["utilities", "encryption", "ram disk", "yaml"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
     "Operating System :: OS Independent",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-    "Topic :: Utilities",
-    "Typing :: Typed",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Utilities",
+    "Typing :: Typed",
 ]
 dependencies = [
     "ccb-essentials>=1.2.0",
@@ -43,7 +44,6 @@ dev = [
     "mypy==1.19.1",
     "pytest==9.0.2",
     "ruff==0.14.7",
-    "setuptools==80.9.0",
 ]
 
 [tool.ruff]
