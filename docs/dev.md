@@ -32,4 +32,4 @@ First, [install uv](https://docs.astral.sh/uv/getting-started/installation/).
 See [the PyPI docs](https://pypi.org/help/#apitoken) to generate a token. See [the uv docs](https://docs.astral.sh/uv/guides/package/#publishing-your-package) for options to configure the token.
 
 ### Upload
-w
+    rm -f dist/* && uv build && uv publish --token pypi-………
