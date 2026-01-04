@@ -10,7 +10,7 @@ from ccb_essentials.subprocess import shell_escape, subprocess_command
 log = logging.getLogger(__name__)
 
 # todo allow override by caller
-OPENSSL = '/opt/local/bin/openssl'
+OPENSSL = '/opt/homebrew/bin/openssl'
 
 
 def md5_file(path: Path) -> str:
